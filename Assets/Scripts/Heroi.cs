@@ -8,11 +8,14 @@ public class Heroi : MonoBehaviour
     private NavMeshAgent Agente;
     private Vector3 Destino;
     public GameObject MeuAtaque;
+    private Animator ControlAnim;
+
 
     void Start()
     {
         Destino = new Vector3(0, 0, 0);
         Agente = GetComponent<NavMeshAgent>();
+        ControlAnim = GetComponent<Animator>();
     }
 
     void Update()
@@ -31,8 +34,24 @@ public class Heroi : MonoBehaviour
        
 
         Agente.SetDestination(Destino);
+
+        ControleAtaque();
     }
 
+
+    void ControleAtaque()
+    {
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.X))
+        {
+            ControlAnim.SetTrigger("Ataque");
+        }
+        
+       
+
+       
+
+
+    }
     public void AtivarAtk()
     {
         MeuAtaque.SetActive(true);
