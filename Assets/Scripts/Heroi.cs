@@ -7,7 +7,8 @@ public class Heroi : MonoBehaviour
 {
     private NavMeshAgent Agente;
     private Vector3 Destino;
-    
+    public GameObject MeuAtaque;
+
     void Start()
     {
         Destino = new Vector3(0, 0, 0);
@@ -27,6 +28,19 @@ public class Heroi : MonoBehaviour
             }
         }
 
+       
+
         Agente.SetDestination(Destino);
     }
+
+    public void AtivarAtk()
+    {
+        MeuAtaque.SetActive(true);
+    }
+
+    public void DesativarAtk()
+    {
+        MeuAtaque.SetActive(false);
+    }
+
 }
