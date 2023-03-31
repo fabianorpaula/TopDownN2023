@@ -27,7 +27,15 @@ public class Heroi : MonoBehaviour
             RaycastHit localTocou;
             if (Physics.Raycast(pontodesaida, out localTocou, Mathf.Infinity))
             {
-                Destino = localTocou.point;
+                if(localTocou.collider.gameObject.tag == "Inimigo")
+                {
+                    Destino = localTocou.transform.position;
+                }
+                else
+                {
+                    Destino = localTocou.point;
+                }
+                
             }
         }
 
@@ -45,10 +53,14 @@ public class Heroi : MonoBehaviour
         {
             ControlAnim.SetTrigger("Ataque");
         }
-        
-       
 
-       
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ControlAnim.SetTrigger("Disparo");
+        }
+
+
+
 
 
     }
@@ -62,4 +74,19 @@ public class Heroi : MonoBehaviour
         MeuAtaque.SetActive(false);
     }
 
+
+
+    void AtkDistancia()
+    {
+        RaycastHit meuAtkD;
+        if (Physics.Raycast(MeuAtaque.transform.position, transform.forward, out meuAtkD, 10f))
+        {
+            
+            if(meuAtkD.collider.gameObject.tag == "Inimigo")
+            {
+                meuAtkD.collider.gameObject.GetComponent<Inimigo>().TomeiDano();
+            }
+
+        }
+    }
 }
