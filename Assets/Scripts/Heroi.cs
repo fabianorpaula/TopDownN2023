@@ -30,6 +30,7 @@ public class Heroi : MonoBehaviour
                 if(localTocou.collider.gameObject.tag == "Inimigo")
                 {
                     Destino = localTocou.transform.position;
+                    
                 }
                 else
                 {
