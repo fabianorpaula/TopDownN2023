@@ -10,6 +10,8 @@ public class Heroi : MonoBehaviour
     public GameObject MeuAtaque;
     private Animator ControlAnim;
 
+    private bool podePegar = false;
+
 
     void Start()
     {
@@ -29,20 +31,29 @@ public class Heroi : MonoBehaviour
             {
                 if(localTocou.collider.gameObject.tag == "Inimigo")
                 {
+                    Agente.stoppingDistance = 2;
                     Destino = localTocou.transform.position;
                     
                 }
                 else
                 {
+                    Agente.stoppingDistance = 0;
                     Destino = localTocou.point;
                 }
                 
             }
         }
 
-       
+        if (Input.GetMouseButtonDown(1))
+        {
+            Destino = transform.position;
+        }
 
-        Agente.SetDestination(Destino);
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ControlAnim.SetTrigger("Pegar");
+        }
+            Agente.SetDestination(Destino);
 
         ControleAtaque();
     }
@@ -75,6 +86,15 @@ public class Heroi : MonoBehaviour
         MeuAtaque.SetActive(false);
     }
 
+    public void AtivarPegada()
+    {
+        podePegar = true;
+    }
+
+    public void DesativarPegada()
+    {
+        podePegar = false;
+    }
 
 
     void AtkDistancia()
@@ -90,4 +110,19 @@ public class Heroi : MonoBehaviour
 
         }
     }
+
+
+    private void OnTriggerStay(Collider colidiu)
+    {
+        if(colidiu.gameObject.tag == "Pegavel")
+        {
+            if(podePegar == true)
+            {
+                Destroy(colidiu.gameObject);
+                podePegar = false;
+            }
+            
+        }
+    }
+
 }
