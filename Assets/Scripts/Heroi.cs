@@ -9,12 +9,14 @@ public class Heroi : MonoBehaviour
     private Vector3 Destino;
     public GameObject MeuAtaque;
     private Animator ControlAnim;
+    private GerenciadorDeObjetos Inventario;
 
     private bool podePegar = false;
 
 
     void Start()
     {
+        Inventario = GameObject.FindGameObjectWithTag("Inventario").GetComponent<GerenciadorDeObjetos>();
         Destino = new Vector3(0, 0, 0);
         Agente = GetComponent<NavMeshAgent>();
         ControlAnim = GetComponent<Animator>();
@@ -56,8 +58,22 @@ public class Heroi : MonoBehaviour
             Agente.SetDestination(Destino);
 
         ControleAtaque();
+        Mover();
     }
 
+
+    void Mover()
+    {
+       
+        if(Agente.velocity.magnitude > 1)
+        {
+            ControlAnim.SetBool("Andar", true);
+        }
+        else
+        {
+            ControlAnim.SetBool("Andar", false);
+        }
+    }
 
     void ControleAtaque()
     {
