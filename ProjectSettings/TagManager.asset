@@ -8,6 +8,7 @@ TagManager:
   - Ataque
   - Fruta
   - Pegavel
+  - Inventario
   layers:
   - Default
   - TransparentFX

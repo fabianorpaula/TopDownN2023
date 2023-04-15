@@ -12,7 +12,7 @@ public class Heroi : MonoBehaviour
     private GerenciadorDeObjetos Inventario;
 
     private bool podePegar = false;
-
+    public float hp = 50;
 
     void Start()
     {
@@ -110,6 +110,7 @@ public class Heroi : MonoBehaviour
     public void DesativarPegada()
     {
         podePegar = false;
+        
     }
 
 
@@ -134,11 +135,27 @@ public class Heroi : MonoBehaviour
         {
             if(podePegar == true)
             {
-                Destroy(colidiu.gameObject);
+                string nomeObj = colidiu.gameObject.GetComponent<Item>().Nome;
+                Sprite imgObj = colidiu.gameObject.GetComponent<Item>().imagemObj;
+                if(Inventario.ReceberItem(nomeObj, imgObj) == true)
+                {
+                    Destroy(colidiu.gameObject);
+                }
+                else
+                {
+                    //faz nada
+                }
+
+                
                 podePegar = false;
             }
             
         }
+    }
+
+    public void AumentarHP(float vidaPlus)
+    {
+        hp = hp + vidaPlus;
     }
 
 }
