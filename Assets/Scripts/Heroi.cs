@@ -13,7 +13,7 @@ public class Heroi : MonoBehaviour
 
     private bool podePegar = false;
     public float hp = 50;
-
+    public bool vivo = true;
     void Start()
     {
         Inventario = GameObject.FindGameObjectWithTag("Inventario").GetComponent<GerenciadorDeObjetos>();
@@ -131,13 +131,13 @@ public class Heroi : MonoBehaviour
 
     private void OnTriggerStay(Collider colidiu)
     {
-        if(colidiu.gameObject.tag == "Pegavel")
+        if (colidiu.gameObject.tag == "Pegavel")
         {
-            if(podePegar == true)
+            if (podePegar == true)
             {
                 string nomeObj = colidiu.gameObject.GetComponent<Item>().Nome;
                 Sprite imgObj = colidiu.gameObject.GetComponent<Item>().imagemObj;
-                if(Inventario.ReceberItem(nomeObj, imgObj) == true)
+                if (Inventario.ReceberItem(nomeObj, imgObj) == true)
                 {
                     Destroy(colidiu.gameObject);
                 }
@@ -146,11 +146,39 @@ public class Heroi : MonoBehaviour
                     //faz nada
                 }
 
-                
+
                 podePegar = false;
+            }
+
+        }
+
+       
+    }
+
+    private void OnTriggerEnter(Collider colidiu)
+    {
+        if (colidiu.gameObject.tag == "AtkInimigo")
+        {
+            if(vivo == true)
+            {
+                hp--;
+                ControlAnim.SetTrigger("TomouDano");
+                if (hp <= 0)
+                {
+
+                    Morrer();
+                }
             }
             
         }
+
+    }
+
+
+    public void Morrer()
+    {
+        vivo = false;
+        ControlAnim.SetBool("Morreu", true);
     }
 
     public void AumentarHP(float vidaPlus)

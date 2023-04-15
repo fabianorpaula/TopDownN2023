@@ -9,6 +9,7 @@ TagManager:
   - Fruta
   - Pegavel
   - Inventario
+  - AtkInimigo
   layers:
   - Default
   - TransparentFX
